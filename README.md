@@ -1,7 +1,7 @@
 Clinic - API - Sistema de agendamento de consultas 
 ---
 
-🏥 Este é um projeto é um API REST robusto desenvolvida inteirmente em JAVA 24, projetada para garantir o fluxo de uma cliníca pensada para um cenário real.
+ Este é um projeto é um API REST robusto desenvolvida inteirmente em JAVA 24, projetada para garantir o fluxo de uma cliníca pensada para um cenário real.
 O foco principal do projeto foi a aplicação rigorosa de POO, e alguns conceitos de SOLID que se encaixam no projeto, todas as classes e pacotes foram separadas por funcionalidades (PACKAGE BY FEATURES).
 
 Principais tecnologias utilizadas no projeto
