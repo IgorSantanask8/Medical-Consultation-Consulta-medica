@@ -70,4 +70,10 @@ public class ExamController {
         service.changeTime(id, exam);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/exam/{id}/delete")
+    public ResponseEntity<Optional<Exam>> deleteExam(@PathVariable Long id){
+        service.deleteExam(id);
+        return ResponseEntity.ok().build();
+    }
 }

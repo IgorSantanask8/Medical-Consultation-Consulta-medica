@@ -2,7 +2,10 @@ package br.com.Portifolio.Medical.consultations.service;
 
 import br.com.Portifolio.Medical.consultations.dto.PatientDTO;
 import br.com.Portifolio.Medical.consultations.exception.IdNotFoundException;
+import br.com.Portifolio.Medical.consultations.model.Exam;
+import br.com.Portifolio.Medical.consultations.model.ExamType;
 import br.com.Portifolio.Medical.consultations.model.Patient;
+import br.com.Portifolio.Medical.consultations.repository.ExamRepository;
 import br.com.Portifolio.Medical.consultations.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,8 @@ public class PatientService {
 
     @Autowired
     private PatientRepository repository;
+    @Autowired
+    private ExamRepository examRepository;
 
 
     public List<PatientDTO> convert(List<Patient> patients){
@@ -79,4 +84,5 @@ public class PatientService {
         }
         return repository.save(patientAge);
     }
+
 }

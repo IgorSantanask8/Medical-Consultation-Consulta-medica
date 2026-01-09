@@ -31,6 +31,7 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Exam e SET e.date = :date WHERE e.id = :examId")
-    void UpdateDate(@Param("examID") Long examId, @Param("date")LocalDate date);
+    @Query("UPDATE Exam e SET e.time = :time WHERE e.id = :examId")
+    LocalDate UpdateTime(@Param("time") String time, @Param("examId") Long examId);
+
 }

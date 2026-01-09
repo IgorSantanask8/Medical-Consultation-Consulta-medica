@@ -59,7 +59,10 @@ public class ExamService {
             Exam examType = repository.getReferenceById(idExam);
             if(patientExam.getAge() <= 18){
                 examType.setExam_type(ExamType.PEDIATRIC);
+            }else{
+                examType.setExam_type(setForwarding(idExam));
             }
+
             repository.UpdatePatient(idExam, patientExam);//Method make using Query on ExamRepository class
         }
     }
@@ -100,6 +103,39 @@ public class ExamService {
             examTime.setTime(exam.getTime());
         }
         return repository.save(examTime);
+    }
+
+    public ExamType setForwarding(Long idExam){
+        Exam exam = repository.getReferenceById(idExam);
+
+        String reason = exam.getReason().toLowerCase();
+        if(reason.contains("muscle")||reason.contains("tendon")||reason.contains("back")||reason.contains("neck")){
+            exam.setExam_type(ExamType.PHYSIOTHERAPIST);
+            exam.setLocal(Local.PHYSIOTHERAPY);
+        }else if(reason.contains("heart")||reason.contains("pressure")||reason.contains("chest")){
+            exam.setExam_type(ExamType.CARDIOLOGIST);
+            exam.setLocal(Local.CARDIOLOGY);
+        }else if(reason.contains("vagina")||reason.contains("uterus")||reason.contains("pregnant")){
+            exam.setExam_type(ExamType.GYNECOLOGIST);
+            exam.setLocal(Local.GYNECOLOGY);
+        }else if(reason.contains("lung")||reason.contains("breathing")||reason.contains("air")){
+            exam.setExam_type(ExamType.PULMONOLOGIST);
+            exam.setLocal(Local.PULMONOLOGY);
+        }else if(reason.contains("bone")||reason.contains("fracutre")){
+            exam.setExam_type(ExamType.ORTHOPEDIC);
+            exam.setLocal(Local.ORTHOPEDICS);
+        }else if(reason.contains("routine")){
+            exam.setExam_type(ExamType.ROUTINE);
+            exam.setLocal(Local.LABORATORY);
+        }
+        return exam.getExam_type();
+    }
+
+    public void deleteExam(Long id) {
+        if(!repository.existsById(id)){
+            throw new IdNotFoundException("Id not found");
+        }
+        repository.deleteById(id);
     }
 }
 
