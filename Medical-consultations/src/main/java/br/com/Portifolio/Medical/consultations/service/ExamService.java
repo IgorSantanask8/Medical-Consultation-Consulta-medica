@@ -2,10 +2,7 @@ package br.com.Portifolio.Medical.consultations.service;
 
 import br.com.Portifolio.Medical.consultations.dto.ExamDTO;
 import br.com.Portifolio.Medical.consultations.exception.IdNotFoundException;
-import br.com.Portifolio.Medical.consultations.model.Doctor;
-import br.com.Portifolio.Medical.consultations.model.Exam;
-import br.com.Portifolio.Medical.consultations.model.Nurse;
-import br.com.Portifolio.Medical.consultations.model.Patient;
+import br.com.Portifolio.Medical.consultations.model.*;
 import br.com.Portifolio.Medical.consultations.repository.DoctorRepository;
 import br.com.Portifolio.Medical.consultations.repository.ExamRepository;
 import br.com.Portifolio.Medical.consultations.repository.NurseRepository;
@@ -46,7 +43,7 @@ public class ExamService {
 
     public void setDoctorToExam(Long idExam, Long idDoctor) {
         if(!doctorRepository.existsById(idDoctor) && !repository.existsById(idExam)){
-            throw new RuntimeException("Id not found");
+            throw new IdNotFoundException("Id not found");
         }else if(doctorRepository.existsById(idDoctor) && repository.existsById(idExam)){
             Doctor doctorExam = doctorRepository.getReferenceById(idDoctor);
             repository.UpdateDoctor(idExam, doctorExam);//Method made using Query on ExamRepository class
@@ -59,13 +56,17 @@ public class ExamService {
             throw new IdNotFoundException("Id not found");
         }else if(repository.existsById(idExam) && patientRepository.existsById(idpatient)){
             Patient patientExam = patientRepository.getReferenceById(idpatient);
+            Exam examType = repository.getReferenceById(idExam);
+            if(patientExam.getAge() <= 18){
+                examType.setExam_type(ExamType.PEDIATRIC);
+            }
             repository.UpdatePatient(idExam, patientExam);//Method make using Query on ExamRepository class
         }
     }
 
     public void setNurseToExam(Long idExam, Long idNurse) {
         if(!repository.existsById(idExam) && nurseRepository.existsById(idNurse)){
-            throw new RuntimeException("Id not found");
+            throw new IdNotFoundException("Id not found");
         }else if(repository.existsById(idExam) && nurseRepository.existsById(idNurse)){
             Nurse nurseExam = nurseRepository.getReferenceById(idNurse);
             repository.UpdateNurse(idExam,nurseExam);
@@ -74,14 +75,14 @@ public class ExamService {
 
     public Optional<Exam> obtainExamById(Long id) {
         if(!repository.existsById(id)){
-            throw new RuntimeException("Id not found");
+            throw new IdNotFoundException("Id not found");
         }
         return repository.findById(id);
     }
 
     public Exam changeDate(Long id, Exam exam) {
         if(!repository.existsById(id)){
-            throw new RuntimeException("id not found");
+            throw new IdNotFoundException("id not found");
         }
         Exam examDatePostman = repository.getReferenceById(id);
         if(exam.getDate()!= null){
@@ -92,7 +93,7 @@ public class ExamService {
 
     public Exam changeTime(Long id, Exam exam) {
         if(!repository.existsById(id)){
-            throw new RuntimeException("Id not found");
+            throw new IdNotFoundException("Id not found");
         }
         Exam examTime = repository.getReferenceById(id);
         if(exam.getTime()!=null){

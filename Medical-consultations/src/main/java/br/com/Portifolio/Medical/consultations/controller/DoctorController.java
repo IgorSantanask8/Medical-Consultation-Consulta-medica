@@ -49,4 +49,10 @@ public class DoctorController {
         service.changeEmail(id, doctor);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/doctor/{id}/change/phone")
+    public ResponseEntity<Doctor> changePhone(@PathVariable Long id, @RequestBody Doctor doctor){
+        service.changePhoneDoctor(id, doctor);
+        return ResponseEntity.ok().build();
+    }
 }

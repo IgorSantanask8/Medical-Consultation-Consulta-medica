@@ -19,6 +19,7 @@ public class Patient {
     private String cpf;
     private String phone;
     private String email;
+    private Integer age;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy")
     private LocalDate dateOfBirth;
 
@@ -35,12 +36,13 @@ public class Patient {
 
     public Patient(){}
 
-    public Patient(String name, String cpf, String phone, String email, LocalDate dateOfBirth) {
+    public Patient(String name, String cpf, String phone, String email, LocalDate dateOfBirth, Integer age) {
         this.name = name;
         this.cpf = cpf;
         this.phone = phone;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
+        this.age = age;
     }
 
     public Long getId() {
@@ -85,6 +87,14 @@ public class Patient {
 
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {

@@ -6,5 +6,6 @@ public record PatientDTO(String name,
                          String cpf,
                          String phone,
                          String email,
-                         LocalDate dateOfBirth) {
+                         LocalDate dateOfBirth,
+                         Integer age) {
 }

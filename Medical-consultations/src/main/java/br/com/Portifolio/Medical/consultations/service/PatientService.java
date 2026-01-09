@@ -21,7 +21,7 @@ public class PatientService {
     public List<PatientDTO> convert(List<Patient> patients){
         return patients.stream()
                 .map(p -> new PatientDTO(p.getName(),p.getCpf(),p.getPhone(),p.getEmail(),
-                        p.getDateOfBirth()))
+                        p.getDateOfBirth(),p.getAge()))
                 .collect(Collectors.toList());
     }
 
@@ -56,5 +56,27 @@ public class PatientService {
             patientEmail.setEmail(patient.getEmail());
         }
         return repository.save(patientEmail);
+    }
+
+    public Patient changePatientPhone(Long id, Patient patient) {
+        if(!repository.existsById(id)){
+            throw new IdNotFoundException("Id not found");
+        }
+        Patient patientPhone = repository.getReferenceById(id);
+        if(patient.getPhone()!=null){
+            patientPhone.setPhone(patient.getPhone());
+        }
+        return repository.save(patientPhone);
+    }
+
+    public Patient changeAge(Long id, Patient patient) {
+        if(!repository.existsById(id)){
+            throw new IdNotFoundException("Id not found");
+        }
+        Patient patientAge = repository.getReferenceById(id);
+        if(patient.getAge()!=null){
+            patientAge.setAge(patient.getAge());
+        }
+        return repository.save(patientAge);
     }
 }

@@ -56,4 +56,15 @@ public class DoctorService {
         }
         return repository.save(doctorChangeEmail);
     }
+
+    public Doctor changePhoneDoctor(Long id, Doctor doctor) {
+        if(!repository.existsById(id)){
+            throw new IdNotFoundException("Id not found");
+        }
+        Doctor doctorPhone = repository.getReferenceById(id);
+        if(doctor.getPhone()!=null){
+            doctorPhone.setPhone(doctor.getPhone());
+        }
+        return repository.save(doctorPhone);
+    }
 }

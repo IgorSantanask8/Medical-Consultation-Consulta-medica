@@ -48,5 +48,11 @@ public class NurseController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/nurse/{id}/change/phone")
+    public ResponseEntity<Nurse> changePhone(@PathVariable Long id, @RequestBody Nurse nurse){
+        service.changePhone(id, nurse);
+        return ResponseEntity.ok().build();
+    }
+
 
 }

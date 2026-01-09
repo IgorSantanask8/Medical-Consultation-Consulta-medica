@@ -32,7 +32,7 @@ public class PatientController {
     public ResponseEntity<PatientDTO> obtainPatientByiId(@PathVariable Long id){
         return service.obtainPatientById(id)
                 .map(p -> new PatientDTO(p.getName(),p.getCpf(),p.getPhone(),p.getEmail(),
-                        p.getDateOfBirth()))
+                        p.getDateOfBirth(),p.getAge()))
                 .map(dto -> ResponseEntity.ok().body(dto))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -46,6 +46,18 @@ public class PatientController {
     @PutMapping("/patient/{id}/change/email")
     public ResponseEntity<Patient> changeEmail(@PathVariable Long id, @RequestBody Patient patient){
         service.changePatientEmail(id, patient);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/patient/{id}/change/phone")
+    public ResponseEntity<Patient> changePhone(@PathVariable Long id, @RequestBody Patient patient){
+        service.changePatientPhone(id, patient);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/patient/{id}/change/age")
+    public ResponseEntity<Patient> changeAge(@PathVariable Long id, @RequestBody Patient patient){
+        service.changeAge(id,patient);
         return ResponseEntity.ok().build();
     }
 }

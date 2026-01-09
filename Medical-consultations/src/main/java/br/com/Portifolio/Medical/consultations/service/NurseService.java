@@ -59,4 +59,15 @@ public class NurseService {
         }
         return repository.save(nurseChangeEmail);
     }
+
+    public Nurse changePhone(Long id, Nurse nurse) {
+        if(!repository.existsById(id)){
+            throw new IdNotFoundException("Id not found");
+        }
+        Nurse nurseEmail = repository.getReferenceById(id);
+        if(nurse.getPhone()!= null){
+            nurseEmail.setPhone(nurse.getPhone());
+        }
+        return repository.save(nurseEmail);
+    }
 }

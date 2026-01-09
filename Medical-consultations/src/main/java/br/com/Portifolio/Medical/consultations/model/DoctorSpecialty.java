@@ -15,7 +15,7 @@ public enum DoctorSpecialty {
     PHYSIOTHERAPIST,
     @JsonProperty("gynecologist")
     GYNECOLOGIST,
-    @JsonProperty("pediatric, Pediatric")
+    @JsonProperty("pediatric")
     PEDIATRIC,
     DEAFULT
 }
