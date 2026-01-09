@@ -1,9 +1,6 @@
 package br.com.Portifolio.Medical.consultations.repository;
 
-import br.com.Portifolio.Medical.consultations.model.Doctor;
-import br.com.Portifolio.Medical.consultations.model.Exam;
-import br.com.Portifolio.Medical.consultations.model.Nurse;
-import br.com.Portifolio.Medical.consultations.model.Patient;
+import br.com.Portifolio.Medical.consultations.model.*;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface ExamRepository extends JpaRepository<Exam, Long> {
 
@@ -33,5 +31,14 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
     @Transactional
     @Query("UPDATE Exam e SET e.time = :time WHERE e.id = :examId")
     LocalDate UpdateTime(@Param("time") String time, @Param("examId") Long examId);
+
+    @Query("SELECT e FROM Exam e WHERE  YEAR(e.date) >= :ano AND MONTH(e.date) >= :mes")
+    List<Exam> examsGreatherInYear(@Param("ano")Long ano, @Param("mes")Long mes);
+
+    @Query("SELECT e FROM Exam e WHERE YEAR(e.date) <= :year AND MONTH(e.date) <= :month")
+    List<Exam> examsMinorInYear(@Param("year") Long year, @Param("month") Long month);
+
+    @Query("SELECT e FROM Exam e WHERE e.exam_type = :type")
+    List<Exam> examsByType(@Param("type") ExamType type);
 
 }

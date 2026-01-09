@@ -1,10 +1,7 @@
 package br.com.Portifolio.Medical.consultations.controller;
 
 import br.com.Portifolio.Medical.consultations.dto.ExamDTO;
-import br.com.Portifolio.Medical.consultations.model.Doctor;
-import br.com.Portifolio.Medical.consultations.model.Exam;
-import br.com.Portifolio.Medical.consultations.model.Nurse;
-import br.com.Portifolio.Medical.consultations.model.Patient;
+import br.com.Portifolio.Medical.consultations.model.*;
 import br.com.Portifolio.Medical.consultations.service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +35,21 @@ public class ExamController {
                         e.getDoctor(),e.getNurse(),e.getDate()))
                 .map(dto -> ResponseEntity.ok(dto))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/exam/obtain/greather/{year}/{month}")
+    public List<ExamDTO> examInAnYear(@PathVariable Long year, @PathVariable Long month){
+        return service.examGreatherInAnYear(year, month);
+    }
+
+    @GetMapping("/exam/obtain/minor/{year}/{month}")
+    public List<ExamDTO> examMinorInAYear(@PathVariable Long year, @PathVariable Long month){
+        return service.examMinorInAYear(year, month);
+    }
+
+    @GetMapping("/exam/type/{type}")
+    public List<ExamDTO> examByType(@PathVariable ExamType type){
+        return service.examByType(type);
     }
 
     @PutMapping("/exam/{idExam}/doctor/{idDoctor}")

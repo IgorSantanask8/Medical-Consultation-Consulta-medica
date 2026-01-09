@@ -137,6 +137,18 @@ public class ExamService {
         }
         repository.deleteById(id);
     }
+
+    public List<ExamDTO> examGreatherInAnYear(Long year, Long month) {
+        return convert(repository.examsGreatherInYear(year,month));
+    }
+
+    public List<ExamDTO> examMinorInAYear(Long year, Long month) {
+        return convert(repository.examsMinorInYear(year,month));
+    }
+
+    public List<ExamDTO> examByType(ExamType type) {
+        return convert(repository.examsByType(type));
+    }
 }
 
 
